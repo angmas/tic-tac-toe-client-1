@@ -16,10 +16,12 @@ const onCreateGame = function (event) {
   // event.preventDefault()
   $('h1').html('tic-tac-toe.<br/>you have created a new game')
   currentPlayer = 'x'
-  let gameWinner = false
-  let numberMoves = 0
+  // let gameWinner = false
+  gameWinner = false
+  // let numberMoves = 0
+  numberMoves = 0
   gameBoard = ['', '', '', '', '', '', '', '', '']
-  let over = false
+  over = false
   $('.0').on('click', onClickBoard)
   $('.1').on('click', onClickBoard)
   $('.2').on('click', onClickBoard)
@@ -31,7 +33,8 @@ const onCreateGame = function (event) {
   $('.8').on('click', onClickBoard)
   api.createGame()
       .then(ui.createGameSuccess)
-  currentPlayer = 'x'
+//  currentPlayer = 'x'  <-- you can't have this code between the .then and .catch
+// plus, you already have this on line 18
       .catch(ui.createGameFailure)
 }
 
@@ -64,7 +67,9 @@ const onClickBoard = function (event) {
     gameBoard[index] = 'x'
     $(this).off('click', onClickBoard)
     // gameBoard[index] = value
-    let over = isOver(gameBoard, value)
+    // let over = isOver(gameBoard, value) <--- you already declared this once
+    //                                          at the beginning of this module
+    over = isOver(gameBoard, value)
     console.log('over equals ' + over)
     const data = {
       'game': {
@@ -92,7 +97,8 @@ const onClickBoard = function (event) {
     $(this).text('o')
     $(this).off('click', onClickBoard)
     gameBoard[index] = value
-    let over = isOver(gameBoard, value)
+    // let over = isOver(gameBoard, value)
+    over = isOver(gameBoard, value)
     const data = {
       'game': {
         'cell': {
